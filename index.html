@@ -2,61 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ACB Restaurant | Fresh & Flavorful</title>
+  <title>Kantime AI Demo</title>
 </head>
-<body style="margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #f5fff3; color: #333;">
+<body style="margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #f4fff6; color: #2e7d32;">
 
-  <!-- Header Section -->
-  <div style="background-color: #2e7d32; padding: 40px 0; text-align: center; color: white;">
-    <h1 style="margin: 0; font-size: 48px;">ACB Restaurant</h1>
-    <p style="margin: 10px 0 0; font-size: 20px;">Fresh & Flavorful | Taste That Feels Like Home</p>
+  <!-- Header -->
+  <div style="background-color: #2e7d32; padding: 30px; text-align: center; color: white;">
+    <h1 style="margin: 0;">Kantime AI Demo</h1>
+    <p style="margin-top: 10px;">Speak patient details — let AI auto-fill the form!</p>
   </div>
 
-  <!-- About Section -->
-  <div style="padding: 40px; text-align: center;">
-    <h2>Welcome to ACB Restaurant</h2>
-    <p style="max-width: 700px; margin: auto; font-size: 18px; line-height: 1.6;">
-      ACB Restaurant is your go-to place for home-style Indian meals made with love and fresh ingredients.
-      Whether you're in the mood for spicy curries or comfort snacks, we’ve got something for everyone.
-    </p>
-  </div>
-
-  <!-- Menu Section -->
-  <div style="background-color: #e9f5e9; padding: 40px; text-align: center;">
-    <h2>Our Menu</h2>
-    <div style="max-width: 800px; margin: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 30px;">
-      <div style="background: white; border-radius: 8px; padding: 20px; width: 200px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <h3>Veg Thali</h3>
-        <p>₹150</p>
-      </div>
-      <div style="background: white; border-radius: 8px; padding: 20px; width: 200px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <h3>Panner Butter Masala</h3>
-        <p>₹180</p>
-      </div>
-      <div style="background: white; border-radius: 8px; padding: 20px; width: 200px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <h3>Parotta (2 pcs)</h3>
-        <p>₹40</p>
-      </div>
-      <div style="background: white; border-radius: 8px; padding: 20px; width: 200px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-        <h3>Filter Coffee</h3>
-        <p>₹25</p>
-      </div>
+  <!-- Image Section -->
+  <div style="display: flex; justify-content: center; gap: 50px; padding: 40px; flex-wrap: wrap;">
+    <div>
+      <img src="https://cdn-icons-png.flaticon.com/512/706/706797.png" alt="Patient" style="width: 200px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.2);" />
+      <p style="text-align: center;">Patient</p>
+    </div>
+    <div>
+      <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" alt="Nurse" style="width: 200px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.2);" />
+      <p style="text-align: center;">Nurse</p>
     </div>
   </div>
 
-  <!-- Contact Section -->
-  <div style="padding: 40px; text-align: center;">
-    <h2>Contact Us</h2>
-    <p style="font-size: 18px;">📞 9876543210 | 📧 acbrestaurant@example.com</p>
-    <a href="mailto:acbrestaurant@example.com" style="margin-top: 20px; display: inline-block; background-color: #2e7d32; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px;">
-      Send Us an Email
-    </a>
+  <!-- Voice Input Section -->
+  <div style="padding: 20px; text-align: center;">
+    <button onclick="startListening()" style="background-color: #43a047; color: white; padding: 15px 30px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer;">
+      🎤 Start Listening
+    </button>
+    <p style="margin-top: 20px; font-size: 18px;">Spoken Text:</p>
+    <div id="transcript" style="background: #ffffff; padding: 20px; max-width: 700px; margin: 10px auto; border-radius: 5px; border: 2px solid #c8e6c9; min-height: 50px;"></div>
+  </div>
+
+  <!-- AI-Filled Form -->
+  <div style="padding: 40px; max-width: 600px; margin: auto;">
+    <h2 style="text-align: center; color: #1b5e20;">Auto-Filled Patient Form</h2>
+    <form>
+      <label>Patient Name:</label><br />
+      <input id="name" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
+
+      <label>Age:</label><br />
+      <input id="age" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
+
+      <label>Gender:</label><br />
+      <input id="gender" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
+
+      <label>Symptoms:</label><br />
+      <input id="symptoms" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
+
+      <label>Address:</label><br />
+      <input id="address" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
+    </form>
   </div>
 
   <!-- Footer -->
   <div style="background-color: #1b5e20; color: white; text-align: center; padding: 20px;">
-    <p style="margin: 0;">&copy; 2025 ACB Restaurant | All rights reserved.</p>
+    <p style="margin: 0;">&copy; 2025 Kantime AI Demo</p>
   </div>
+
+  <!-- JavaScript -->
+  <script>
+    const transcriptBox = document.getElementById("transcript");
+
+    function startListening() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Sorry, your browser does not support speech recognition.");
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onresult = function(event) {
+        const text = event.results[0][0].transcript;
+        transcriptBox.innerText = text;
+        fillForm(text.toLowerCase());
+      };
+
+      recognition.start();
+    }
+
+    function fillForm(text) {
+      if (text.includes("john")) document.getElementById("name").value = "John Doe";
+      if (text.includes("age") || text.includes("45")) document.getElementById("age").value = "45";
+      if (text.includes("male")) document.getElementById("gender").value = "Male";
+      if (text.includes("female")) document.getElementById("gender").value = "Female";
+      if (text.includes("fever")) document.getElementById("symptoms").value = "Fever";
+      if (text.includes("cough")) document.getElementById("symptoms").value = "Cough";
+      if (text.includes("bangalore")) document.getElementById("address").value = "Bangalore";
+      if (text.includes("chennai")) document.getElementById("address").value = "Chennai";
+    }
+  </script>
 
 </body>
 </html>
