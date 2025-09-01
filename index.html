@@ -1,99 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kantime AI Demo</title>
-</head>
-<body style="margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #f4fff6; color: #2e7d32;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dexterous Power Solution</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+      @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-  <!-- Header -->
-  <div style="background-color: #2e7d32; padding: 30px; text-align: center; color: white;">
-    <h1 style="margin: 0;">Kantime AI Demo</h1>
-    <p style="margin-top: 10px;">Speak patient details — let AI auto-fill the form!</p>
-  </div>
-
-  <!-- Image Section -->
-  <div style="display: flex; justify-content: center; gap: 50px; padding: 40px; flex-wrap: wrap;">
-    <div>
-      <img src="https://cdn-icons-png.flaticon.com/512/706/706797.png" alt="Patient" style="width: 200px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.2);" />
-      <p style="text-align: center;">Patient</p>
-    </div>
-    <div>
-      <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" alt="Nurse" style="width: 200px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.2);" />
-      <p style="text-align: center;">Nurse</p>
-    </div>
-  </div>
-
-  <!-- Voice Input Section -->
-  <div style="padding: 20px; text-align: center;">
-    <button onclick="startListening()" style="background-color: #43a047; color: white; padding: 15px 30px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer;">
-      🎤 Start Listening
-    </button>
-    <p style="margin-top: 20px; font-size: 18px;">Spoken Text:</p>
-    <div id="transcript" style="background: #ffffff; padding: 20px; max-width: 700px; margin: 10px auto; border-radius: 5px; border: 2px solid #c8e6c9; min-height: 50px;"></div>
-  </div>
-
-  <!-- AI-Filled Form -->
-  <div style="padding: 40px; max-width: 600px; margin: auto;">
-    <h2 style="text-align: center; color: #1b5e20;">Auto-Filled Patient Form</h2>
-    <form>
-      <label>Patient Name:</label><br />
-      <input id="name" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
-
-      <label>Age:</label><br />
-      <input id="age" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
-
-      <label>Gender:</label><br />
-      <input id="gender" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
-
-      <label>Symptoms:</label><br />
-      <input id="symptoms" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
-
-      <label>Address:</label><br />
-      <input id="address" type="text" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #81c784;" readonly /><br />
-    </form>
-  </div>
-
-  <!-- Footer -->
-  <div style="background-color: #1b5e20; color: white; text-align: center; padding: 20px;">
-    <p style="margin: 0;">&copy; 2025 Kantime AI Demo</p>
-  </div>
-
-  <!-- JavaScript -->
-  <script>
-    const transcriptBox = document.getElementById("transcript");
-
-    function startListening() {
-      if (!('webkitSpeechRecognition' in window)) {
-        alert("Sorry, your browser does not support speech recognition.");
-        return;
+      :root {
+        --primary-color: #0052D4;
+        --secondary-color: #4364F7;
+        --accent-color: #6FB1FC;
+        --heading-color: #1A293D;
+        --text-color: #334E68;
+        --background-color: #F0F4F8;
+        --white-color: #ffffff;
+        --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       }
 
-      const recognition = new webkitSpeechRecognition();
-      recognition.lang = "en-US";
-      recognition.continuous = false;
-      recognition.interimResults = false;
+      * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+      }
 
-      recognition.onresult = function(event) {
-        const text = event.results[0][0].transcript;
-        transcriptBox.innerText = text;
-        fillForm(text.toLowerCase());
-      };
+      body {
+          font-family: 'Poppins', sans-serif;
+          line-height: 1.7;
+          background-color: var(--background-color);
+          color: var(--text-color);
+          overflow-x: hidden;
+      }
 
-      recognition.start();
-    }
+      .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+      }
 
-    function fillForm(text) {
-      if (text.includes("john")) document.getElementById("name").value = "John Doe";
-      if (text.includes("age") || text.includes("45")) document.getElementById("age").value = "45";
-      if (text.includes("male")) document.getElementById("gender").value = "Male";
-      if (text.includes("female")) document.getElementById("gender").value = "Female";
-      if (text.includes("fever")) document.getElementById("symptoms").value = "Fever";
-      if (text.includes("cough")) document.getElementById("symptoms").value = "Cough";
-      if (text.includes("bangalore")) document.getElementById("address").value = "Bangalore";
-      if (text.includes("chennai")) document.getElementById("address").value = "Chennai";
-    }
-  </script>
+      header {
+          background: var(--white-color);
+          box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          padding: 1rem 0;
+      }
 
+      nav {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .logo {
+          font-weight: 700;
+          font-size: 1.6rem;
+          color: var(--heading-color);
+          text-decoration: none;
+      }
+      
+      .logo .x-char {
+        color: var(--primary-color);
+      }
+      
+      .logo-sub {
+          font-size: 1rem;
+          font-weight: 600;
+          color: var(--primary-color);
+          display: block;
+          margin-top: -8px;
+      }
+
+
+      .nav-links {
+          list-style: none;
+          display: flex;
+          gap: 2.5rem;
+      }
+
+      .nav-links a {
+          text-decoration: none;
+          color: var(--heading-color);
+          font-weight: 600;
+          transition: color 0.3s ease;
+          font-size: 1rem;
+          position: relative;
+      }
+      
+      .nav-links a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+          width: 100%;
+      }
+      
+      .nav-toggle {
+        display: none;
+        font-size: 2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--heading-color);
+      }
+
+      .hero {
+          background: linear-gradient(rgba(26, 41, 61, 0.8), rgba(26, 41, 61, 0.8)), url('https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?q=80&w=1740&auto=format&fit=crop') center/cover no-repeat;
+          padding: 7rem 20px;
+          text-align: center;
+          color: var(--white-color);
+      }
+
+      .hero h1 {
+          font-size: 3.2rem;
+          margin-bottom: 1rem;
+          font-weight: 700;
+      }
+
+      .hero p {
+          font-size: 1.25rem;
+          font-weight: 400;
+          margin-bottom: 2.5rem;
+          max-width: 750px;
+          margin-left: auto;
+          margin-right: auto;
+      }
+      
+      .cta-button {
+        display: inline-block;
+        background: var(--gradient);
+        color: var(--white-color);
+        padding: 14px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 82, 212, 0.4);
+      }
+      
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 82, 212, 0.5);
+      }
+
+      .section {
+          padding: 5rem 0;
+      }
+      
+      .section:nth-of-type(even) {
+        background-color: var(--white-color);
+      }
+
+      .section-title {
+          font-size: 2.5rem;
+          text-align: center;
+          margin-bottom: 3.5rem;
+          color: var(--heading-color);
+          font-weight: 700;
+      }
+      
+      .section-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: var(--gradient);
+        margin: 0.5rem auto 0;
+        border-radius: 2px;
+      }
+      
+      /* About Section */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+      
+      .about-image img {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+      
+      .about-content h3 {
+        font-size: 2rem;
+        color: var(--heading-color);
+        margin-bottom: 1rem;
+      }
+      
+      .about-content p {
+        margin-bottom: 1rem;
+      }
+      
+      /* Services Section */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+      
+      .service-card {
+        background: var(--white-color);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-top: 4px solid var(--primary-color);
+      }
+      
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      }
+      
+      .service-card .icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+      }
+      
+      .service-card h3 {
+        font-size: 1.5rem;
+        color: var(--heading-color);
+        margin-bottom: 1rem;
+      }
+
+      .brands-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 2rem;
+          align-items: center;
+          justify-items: center;
+      }
+
+      .brand-logo {
+          background: var(--white-color);
+          padding: 1.5rem;
+          border-radius: 8px;
+          border: 1px solid #e0e0e0;
+          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+          text-align: center;
+          font-weight: 600;
+          font-size: 1.2rem;
+          color: var(--text-color);
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .brand-logo:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+          border-color: var(--primary-color);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        text-align: center;
+      }
+      
+      .contact-card {
+        padding: 2rem;
+      }
+      
+      .contact-card h3 {
+        color: var(--heading-color);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-card p, .contact-card a {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        text-decoration: none;
+        line-height: 1.8;
+      }
+      
+      .contact-card a:hover {
+        color: var(--primary-color);
+      }
+      
+      .contact-card strong {
+        display: block;
+      }
+
+      footer {
+          background: var(--heading-color);
+          color: var(--white-color);
+          text-align: center;
+          padding: 2.5rem 0;
+      }
+
+      @media (max-width: 992px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .about-image {
+          order: -1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1.1rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .nav-toggle {
+          display: block;
+        }
+        
+        nav {
+          flex-wrap: wrap;
+        }
+        
+        /* Javascript would be needed to toggle this class */
+        .nav-links.active {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          text-align: center;
+          gap: 1.5rem;
+          margin-top: 1rem;
+          padding: 1rem;
+          background: var(--white-color);
+        }
+      }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                de<span class="x-char">x</span>terous
+                <span class="logo-sub">Power Solution</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#brands">Our Brands</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Uninterrupted Power, Unmatched Reliability</h1>
+                <p>Your premier partner for comprehensive power solutions, ensuring your critical systems are always online. We deliver excellence from the world's leading brands.</p>
+                <a href="#contact" class="cta-button">Get In Touch</a>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Our Company</h2>
+                <div class="about-grid">
+                    <div class="about-content">
+                        <h3>Your Trusted Experts in Power Solutions</h3>
+                        <p>Dexterous Power Solution is a leading provider of critical power and backup solutions. With years of industry experience, we are dedicated to ensuring your operations run smoothly without interruption.</p>
+                        <p>Our mission is to deliver reliable, efficient, and innovative power systems tailored to your unique needs, backed by unparalleled customer service and technical expertise.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1581092446337-233f21babf4b?q=80&w=1740&auto=format&fit=crop" alt="Engineer working on power systems">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-charging-station"></i></div>
+                        <h3>UPS Systems</h3>
+                        <p>We supply and install state-of-the-art Uninterruptible Power Supply (UPS) systems to protect your critical equipment.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-tools"></i></div>
+                        <h3>Preventive Maintenance</h3>
+                        <p>Our proactive maintenance plans ensure your power systems are always in peak condition, preventing costly downtime.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-car-battery"></i></div>
+                        <h3>Battery Replacement</h3>
+                        <p>Expert battery testing and replacement services to guarantee the reliability and longevity of your backup power.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-headset"></i></div>
+                        <h3>24/7 Emergency Support</h3>
+                        <p>Our dedicated team is available around the clock to provide immediate assistance and resolve any power-related issues.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="brands" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Partner Brands</h2>
+                <div class="brands-grid">
+                    <div class="brand-logo">EMERSON</div>
+                    <div class="brand-logo">Schneider Electric</div>
+                    <div class="brand-logo">APC</div>
+                    <div class="brand-logo">SOCOMEC</div>
+                    <div class="brand-logo">DELTA</div>
+                    <div class="brand-logo">Amara Raja</div>
+                    <div class="brand-logo">EXIDE</div>
+                    <div class="brand-logo">ROCKET</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <div class="contact-grid">
+                  <div class="contact-card">
+                    <h3>Address</h3>
+                    <p>
+                        # 57, YGR Janya Nilaya, 16th Cross,
+                        <br>NGR Layout, Roopena Agrahara, 
+                        <br>Bommanahalli, Bangalore - 560 068.
+                    </p>
+                  </div>
+                  <div class="contact-card">
+                    <h3>Phone</h3>
+                    <p>
+                        <a href="tel:+919994106234">+91 99941 06234</a><br>
+                        <a href="tel:+919942465628">+91 99424 65628</a><br>
+                        <a href="tel:+918546969810">+91 85469 69810</a>
+                    </p>
+                  </div>
+                  <div class="contact-card">
+                    <h3>Email</h3>
+                     <p>
+                        For sales and inquiries, please email us:
+                        <a href="mailto:sales@dexterouspowersolution.com">sales@dexterouspowersolution.com</a>
+                    </p>
+                  </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Dexterous Power Solution. All Rights Reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
